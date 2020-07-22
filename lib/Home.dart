@@ -1,6 +1,11 @@
+import 'package:alcool_gasolina/Resultado.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
+  final Function onTap;
+
+  const Home({Key key, this.onTap}) : super(key: key);
+
   @override
   _HomeState createState() => _HomeState();
 }
@@ -9,6 +14,35 @@ class _HomeState extends State<Home> {
   TextEditingController _controllerAlcool = TextEditingController();
   TextEditingController _controllerGasolina = TextEditingController();
   String _textoResultado = "";
+  FocusNode alcoolFocus;
+  FocusNode gasolinaFocus;
+  String _carro = "a";
+
+  @override
+  void initState() {
+    super.initState();
+    alcoolFocus = FocusNode();
+    gasolinaFocus = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    alcoolFocus.dispose();
+    gasolinaFocus.dispose();
+    super.dispose();
+  }
+
+  void focusAlcool() {
+    setState(() {
+      FocusScope.of(context).requestFocus(alcoolFocus);
+    });
+  }
+
+  void focusGasolina() {
+    setState(() {
+      FocusScope.of(context).requestFocus(gasolinaFocus);
+    });
+  }
 
   void _calcular() {
     double precoAlcool = double.tryParse(_controllerAlcool.text);
@@ -22,11 +56,11 @@ class _HomeState extends State<Home> {
     } else {
       if ((precoAlcool / precoGasolina >= 0.7)) {
         setState(() {
-          _textoResultado = "Melhor abastecer com gasolina";
+          _textoResultado = "Gasolina";
         });
       } else {
         setState(() {
-          _textoResultado = "Melhor abastecer com alcool";
+          _textoResultado = "Etanol";
         });
       }
     }
@@ -41,8 +75,15 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Álcool ou Gasolina"),
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.red,
+        leading: GestureDetector(
+          onTap: widget.onTap,
+          child: Icon(Icons.menu),
+        ),
+        title: Text(
+          "Etanol ou Gasolina",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
       ),
       body: Container(
           child: SingleChildScrollView(
@@ -50,63 +91,83 @@ class _HomeState extends State<Home> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(bottom: 32),
-              child: Image.asset("images/logo.png"),
-            ),
-            Padding(
-              padding: EdgeInsets.only(bottom: 10),
-              child: Text(
-                "Saiba qual a melhor opção para abastecer seu carro",
-                style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
             TextField(
               keyboardType: TextInputType.number,
+              focusNode: alcoolFocus,
+              onTap: focusAlcool,
               decoration: InputDecoration(
-                labelText: "Preço do Álcool, ex: 1.59",
-              ),
+                  labelText: "Etanol",
+                  labelStyle: TextStyle(
+                      color:
+                          alcoolFocus.hasFocus ? Colors.red : Colors.black38),
+                  focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.red))),
               style: TextStyle(
                 fontSize: 22,
               ),
               controller: _controllerAlcool,
+              cursorColor: Colors.red,
             ),
             TextField(
               keyboardType: TextInputType.number,
+              focusNode: gasolinaFocus,
+              onTap: focusGasolina,
               decoration: InputDecoration(
-                labelText: "Preço da Gasolina, ex: 3.59",
-              ),
+                  labelText: "Gasolina",
+                  labelStyle: TextStyle(
+                      color:
+                          gasolinaFocus.hasFocus ? Colors.red : Colors.black38),
+                  focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.red))),
               style: TextStyle(
                 fontSize: 22,
               ),
               controller: _controllerGasolina,
+              cursorColor: Colors.red,
+            ),
+            DropdownButton<String>(
+              value: _carro,
+              style: TextStyle(
+                color: Colors.red,
+              ),
+              underline: Container(
+                height: 1,
+                color: Colors.red,
+              ),
+              onChanged: (String newValue) {
+                setState(() {
+                  _carro = newValue;
+                });
+              },
+              items: <String>['a', 'b']
+                  .map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
             ),
             Padding(
               padding: EdgeInsets.only(top: 10),
               child: RaisedButton(
-                color: Colors.blue,
+                color: Colors.red,
                 textColor: Colors.white,
                 padding: EdgeInsets.all(15),
                 child: Text(
                   "Calcular",
-                  style: TextStyle(fontSize: 20),
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-                onPressed: _calcular,
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Resultado()),
+                  );
+                },
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(top: 10),
-              child: Text(
-                _textoResultado,
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            )
           ],
         ),
       )),
