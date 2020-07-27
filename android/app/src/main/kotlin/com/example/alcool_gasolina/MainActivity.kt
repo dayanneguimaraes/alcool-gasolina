@@ -1,4 +1,4 @@
-package com.example.alcool_gasolina
+package com.pinksplash.alcool.gasolina
 
 import io.flutter.embedding.android.FlutterActivity
 

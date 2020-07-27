@@ -1,3 +1,4 @@
+import 'package:alcool_gasolina/HomeController.dart';
 import 'package:alcool_gasolina/Resultado.dart';
 import 'package:flutter/material.dart';
 
@@ -11,12 +12,9 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  TextEditingController _controllerAlcool = TextEditingController();
-  TextEditingController _controllerGasolina = TextEditingController();
-  String _textoResultado = "";
+  var homeController = new HomeController();
   FocusNode alcoolFocus;
   FocusNode gasolinaFocus;
-  String _carro = "a";
 
   @override
   void initState() {
@@ -42,33 +40,6 @@ class _HomeState extends State<Home> {
     setState(() {
       FocusScope.of(context).requestFocus(gasolinaFocus);
     });
-  }
-
-  void _calcular() {
-    double precoAlcool = double.tryParse(_controllerAlcool.text);
-    double precoGasolina = double.tryParse(_controllerGasolina.text);
-
-    if (precoAlcool == null || precoGasolina == null) {
-      setState(() {
-        _textoResultado =
-            "Número inválido, digite números maiores que 0 e utilizando .";
-      });
-    } else {
-      if ((precoAlcool / precoGasolina >= 0.7)) {
-        setState(() {
-          _textoResultado = "Gasolina";
-        });
-      } else {
-        setState(() {
-          _textoResultado = "Etanol";
-        });
-      }
-    }
-  }
-
-  void _limparCampos() {
-    _controllerAlcool.text = "";
-    _controllerGasolina.text = "";
   }
 
   @override
@@ -105,7 +76,7 @@ class _HomeState extends State<Home> {
               style: TextStyle(
                 fontSize: 22,
               ),
-              controller: _controllerAlcool,
+              controller: homeController.controllerAlcool,
               cursorColor: Colors.red,
             ),
             TextField(
@@ -122,31 +93,31 @@ class _HomeState extends State<Home> {
               style: TextStyle(
                 fontSize: 22,
               ),
-              controller: _controllerGasolina,
+              controller: homeController.controllerGasolina,
               cursorColor: Colors.red,
             ),
-            DropdownButton<String>(
-              value: _carro,
-              style: TextStyle(
-                color: Colors.red,
-              ),
-              underline: Container(
-                height: 1,
-                color: Colors.red,
-              ),
-              onChanged: (String newValue) {
-                setState(() {
-                  _carro = newValue;
-                });
-              },
-              items: <String>['a', 'b']
-                  .map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-            ),
+            // DropdownButton<String>(
+            //   value: _carro,
+            //   style: TextStyle(
+            //     color: Colors.red,
+            //   ),
+            //   underline: Container(
+            //     height: 1,
+            //     color: Colors.red,
+            //   ),
+            //   onChanged: (String newValue) {
+            //     setState(() {
+            //       _carro = newValue;
+            //     });
+            //   },
+            //   items: <String>['a', 'b']
+            //       .map<DropdownMenuItem<String>>((String value) {
+            //     return DropdownMenuItem<String>(
+            //       value: value,
+            //       child: Text(value),
+            //     );
+            //   }).toList(),
+            // ),
             Padding(
               padding: EdgeInsets.only(top: 10),
               child: RaisedButton(
@@ -161,9 +132,13 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 onPressed: () {
+                  homeController.calcular();
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => Resultado()),
+                    MaterialPageRoute(
+                        builder: (context) => Resultado(
+                              resultado: homeController.textoResultado,
+                            )),
                   );
                 },
               ),

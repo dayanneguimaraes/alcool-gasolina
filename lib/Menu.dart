@@ -1,5 +1,6 @@
-import 'package:alcool_gasolina/Carros.dart';
-import 'package:alcool_gasolina/Home.dart';
+// import 'package:alcool_gasolina/Carros.dart';
+// import 'package:alcool_gasolina/Home.dart';
+import 'package:alcool_gasolina/RouteGenerator.dart';
 import 'package:flutter/material.dart';
 
 class Menu extends StatefulWidget {
@@ -10,18 +11,8 @@ class Menu extends StatefulWidget {
 class _MenuState extends State<Menu> {
   int itemSelect = 0;
 
-  _navegar() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => Carros()),
-    );
-  }
-
-  _navegarCalcular() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => Home()),
-    );
+  _navegar(String routeName) {
+    Navigator.pushReplacementNamed(context, routeName);
   }
 
 //Cria uma listview com os itens do menu
@@ -29,10 +20,14 @@ class _MenuState extends State<Menu> {
     return ListView(
       children: <Widget>[
         _topoMenu(),
-        _tiles("Home", Icons.home, 0, _navegarCalcular),
-        _tiles("Calcular", Icons.attach_money, 1, _navegarCalcular),
-        _tiles("Carros", Icons.directions_car, 2, _navegar),
-        Divider(),
+        // _tiles("Home", Icons.home, 0, _navegarCalcular),
+        _tiles("Calcular", Icons.attach_money, 1,
+            () => _navegar(RouteGeneretor.ROTA_HOME)),
+        _tiles("Carros", Icons.directions_car, 2,
+            () => _navegar(RouteGeneretor.ROTA_CARROS)),
+        Divider(
+          color: Colors.white,
+        ),
         _tiles("SAIR", Icons.close, 3, () {}),
       ],
     );

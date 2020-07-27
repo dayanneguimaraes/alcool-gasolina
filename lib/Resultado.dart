@@ -1,6 +1,11 @@
+import 'package:alcool_gasolina/RouteGenerator.dart';
 import 'package:flutter/material.dart';
 
 class Resultado extends StatefulWidget {
+  final String resultado;
+
+  const Resultado({Key key, this.resultado}) : super(key: key);
+
   @override
   _ResultadoState createState() => _ResultadoState();
 }
@@ -36,7 +41,7 @@ class _ResultadoState extends State<Resultado> {
                   color: Colors.red,
                 ),
                 title: Text(
-                  "Gasolina",
+                  widget.resultado,
                   style: TextStyle(
                     fontSize: 35,
                     color: Colors.black87,
@@ -145,10 +150,8 @@ class _ResultadoState extends State<Resultado> {
                       ),
                     ]),
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Resultado()),
-                  );
+                  Navigator.pushReplacementNamed(
+                      context, RouteGeneretor.ROTA_HOME);
                 },
               ),
             ),
