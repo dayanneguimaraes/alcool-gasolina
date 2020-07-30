@@ -1,7 +1,6 @@
+import 'package:alcool_gasolina/CarrosController.dart';
 import 'package:alcool_gasolina/RouteGenerator.dart';
 import 'package:flutter/material.dart';
-import 'package:sqflite/sqflite.dart';
-import 'package:path/path.dart';
 
 class Carros extends StatefulWidget {
   final Function onTap;
@@ -12,11 +11,7 @@ class Carros extends StatefulWidget {
 }
 
 class _CarrosState extends State<Carros> {
-  TextEditingController _controllerNome = TextEditingController();
-  TextEditingController _controllerConsumoEtanol = TextEditingController();
-  TextEditingController _controllerConsumoGasolina = TextEditingController();
-  TextEditingController _controllerTamanhoTanque = TextEditingController();
-
+  CarrosController carrosController = CarrosController();
   FocusNode nomeFocus;
   FocusNode consumoEtanolFocus;
   FocusNode consumoGasolinaFocus;
@@ -42,58 +37,30 @@ class _CarrosState extends State<Carros> {
 
   void focusNome() {
     setState(() {
-      // FocusScope.of(context).requestFocus(nomeFocus);
+      FocusScope.of(context).requestFocus(nomeFocus);
     });
   }
 
   void focusConsumoEtanol() {
     setState(() {
-      // FocusScope.of(context).requestFocus(consumoEtanolFocus);
+      FocusScope.of(context).requestFocus(consumoEtanolFocus);
     });
   }
 
   void focusConsumoGasolina() {
     setState(() {
-      // FocusScope.of(context).requestFocus(consumoGasolinaFocus);
+      FocusScope.of(context).requestFocus(consumoGasolinaFocus);
     });
   }
 
   void focusTamanhoTanque() {
     setState(() {
-      // FocusScope.of(context).requestFocus(tamanhoTanqueFocus);
+      FocusScope.of(context).requestFocus(tamanhoTanqueFocus);
     });
-  }
-
-  _recuperarBancoDados() async {
-    final caminhoBancoDados = await getDatabasesPath();
-    final localBancoDados = join(caminhoBancoDados, "etanolGasolina.db");
-
-    var bd = await openDatabase(localBancoDados, version: 1,
-        onCreate: (db, dbVersaoRecente) {
-      String sql =
-          "CREATE TABLE carros (id INTEGER PRIMARY KEY AUTOINCREMENT, nome VARCHAR, consumoEtanol REAL, consumoGasolina REAL, tamanhoTanque REAL)";
-      db.execute(sql);
-    });
-    // print("aberto: " + retorno.isOpen.toString());
-    return bd;
-  }
-
-  _salvar() async {
-    Database bd = _recuperarBancoDados();
-    Map<String, dynamic> dadosCarro = {
-      "nome": _controllerNome,
-      "consumoEtanol": _controllerConsumoEtanol,
-      "consumoGasolina": _controllerConsumoGasolina,
-      "tamanhoTanque": _controllerTamanhoTanque
-    };
-
-    int id = await bd.insert("carros", dadosCarro);
-    print("Salvo: $id");
   }
 
   @override
   Widget build(BuildContext context) {
-    _recuperarBancoDados();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.red,
@@ -125,7 +92,7 @@ class _CarrosState extends State<Carros> {
               style: TextStyle(
                 fontSize: 22,
               ),
-              controller: _controllerNome,
+              controller: carrosController.controllerNome,
               cursorColor: Colors.red,
             ),
             TextField(
@@ -143,7 +110,7 @@ class _CarrosState extends State<Carros> {
               style: TextStyle(
                 fontSize: 22,
               ),
-              controller: _controllerConsumoEtanol,
+              controller: carrosController.controllerConsumoEtanol,
               cursorColor: Colors.red,
             ),
             TextField(
@@ -161,7 +128,7 @@ class _CarrosState extends State<Carros> {
               style: TextStyle(
                 fontSize: 22,
               ),
-              controller: _controllerConsumoGasolina,
+              controller: carrosController.controllerConsumoGasolina,
               cursorColor: Colors.red,
             ),
             TextField(
@@ -179,7 +146,7 @@ class _CarrosState extends State<Carros> {
               style: TextStyle(
                 fontSize: 22,
               ),
-              controller: _controllerTamanhoTanque,
+              controller: carrosController.controllerTamanhoTanque,
               cursorColor: Colors.red,
             ),
             Padding(
@@ -196,7 +163,7 @@ class _CarrosState extends State<Carros> {
                   ),
                 ),
                 onPressed: () {
-                  _salvar();
+                  carrosController.salvar();
                   // Navigator.pushReplacementNamed(
                   //     context, RouteGeneretor.ROTA_HOME);
                 },

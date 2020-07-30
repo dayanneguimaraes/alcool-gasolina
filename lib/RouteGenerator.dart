@@ -1,4 +1,6 @@
 import 'package:alcool_gasolina/Carros.dart';
+import 'package:alcool_gasolina/CarrosListagem.dart';
+import 'package:alcool_gasolina/CarrosListagemController.dart';
 import 'package:alcool_gasolina/Home.dart';
 import 'package:alcool_gasolina/Resultado.dart';
 import 'package:alcool_gasolina/Start.dart';
@@ -8,6 +10,7 @@ class RouteGeneretor {
   static const String ROTA_HOME = "/";
   static const String ROTA_CARROS = "/carro";
   static const String ROTA_RESULTADO = "/resultados";
+  static const String ROTA_LISTAGEM_CARROS = "/listagemCarros";
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final args = settings.arguments;
@@ -19,6 +22,8 @@ class RouteGeneretor {
         return MaterialPageRoute(builder: (_) => Carros());
       case ROTA_RESULTADO:
         return MaterialPageRoute(builder: (_) => Resultado());
+      case ROTA_LISTAGEM_CARROS:
+        return MaterialPageRoute(builder: (_) => CarrosListagem());
       default:
         _errorRoute();
     }

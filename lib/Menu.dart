@@ -24,7 +24,7 @@ class _MenuState extends State<Menu> {
         _tiles("Calcular", Icons.attach_money, 1,
             () => _navegar(RouteGeneretor.ROTA_HOME)),
         _tiles("Carros", Icons.directions_car, 2,
-            () => _navegar(RouteGeneretor.ROTA_CARROS)),
+            () => _navegar(RouteGeneretor.ROTA_LISTAGEM_CARROS)),
         Divider(
           color: Colors.white,
         ),
