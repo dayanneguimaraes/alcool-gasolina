@@ -1,4 +1,3 @@
-import 'package:alcool_gasolina/CarrosController.dart';
 import 'package:alcool_gasolina/CarrosListagemController.dart';
 import 'package:alcool_gasolina/RouteGenerator.dart';
 import 'package:flutter/material.dart';
@@ -51,10 +50,6 @@ class _CarrosListagemState extends State<CarrosListagem> {
       children: lista,
     );
   }
-
-  // List.generate(text.length,(index){
-  //           return Text(text[index].toString());
-  //         }),
 
   @override
   Widget build(BuildContext context) {
