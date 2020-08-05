@@ -1,12 +1,11 @@
-import 'package:alcool_gasolina/Home.dart';
 import 'package:alcool_gasolina/RouteGenerator.dart';
-import 'package:alcool_gasolina/Start.dart';
+import 'package:alcool_gasolina/SplashScreen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: Start(),
+    home: SplashScreen(),
     initialRoute: "/",
     onGenerateRoute: RouteGeneretor.generateRoute,
   ));
