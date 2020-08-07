@@ -49,6 +49,6 @@ class CarrosListagemController {
     String sql = "SELECT * FROM carros";
 
     carros = await bd.rawQuery(sql);
-    print("Lista: $carros");
+    //print("Lista: $carros");
   }
 }
