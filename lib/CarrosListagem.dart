@@ -1,3 +1,4 @@
+import 'package:alcool_gasolina/CarrosController.dart';
 import 'package:alcool_gasolina/CarrosListagemController.dart';
 import 'package:alcool_gasolina/RouteGenerator.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,7 @@ class CarrosListagem extends StatefulWidget {
 
 class _CarrosListagemState extends State<CarrosListagem> {
   CarrosListagemController carrosController = CarrosListagemController();
-
+/* 
   Widget _cardCarros(nomeCarro) {
     return Card(
       child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
@@ -53,7 +54,7 @@ class _CarrosListagemState extends State<CarrosListagem> {
       children: lista,
     );
   }
-
+ */
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,16 +69,19 @@ class _CarrosListagemState extends State<CarrosListagem> {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
-      body: Container(
-          child: SingleChildScrollView(
-        // padding: EdgeInsets.all(32),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            _listCarros(),
-          ],
+      //Dayanne
+      /*  body: Container(
+        child: SingleChildScrollView(
+          // padding: EdgeInsets.all(32),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              _listCarros(),
+            ],
+          ),
         ),
-      )),
+      ), */
+      body: buidListView(carrosController),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.pushReplacementNamed(context, RouteGeneretor.ROTA_CARROS);
@@ -87,4 +91,41 @@ class _CarrosListagemState extends State<CarrosListagem> {
       ),
     );
   }
+}
+
+buidListView(carrosController) {
+  carrosController.listar();
+  var test = carrosController.carros;
+  final itens = List.generate(test.length, (i) => test[i]['nome']);
+  return ListView.builder(
+    itemCount: itens.length,
+    itemBuilder: (context, index) {
+      return Card(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            ListTile(
+              leading: Icon(
+                Icons.directions_car,
+                color: Colors.red,
+              ),
+              title: Text(
+                "Carro: ${itens[index]}",
+                style: TextStyle(
+                  fontSize: 15,
+                  color: Colors.black87,
+                  fontWeight: FontWeight.bold,
+                ),
+                // textAlign: TextAlign.center,
+              ),
+              onLongPress: () {
+                // do something else
+              },
+              subtitle: Text("Consumo Etanol"),
+            )
+          ],
+        ),
+      );
+    },
+  );
 }
