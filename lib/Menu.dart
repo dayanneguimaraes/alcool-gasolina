@@ -1,5 +1,3 @@
-// import 'package:alcool_gasolina/Carros.dart';
-// import 'package:alcool_gasolina/Home.dart';
 import 'package:alcool_gasolina/RouteGenerator.dart';
 import 'package:flutter/material.dart';
 

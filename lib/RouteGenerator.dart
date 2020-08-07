@@ -1,10 +1,8 @@
 import 'package:alcool_gasolina/Carros.dart';
 import 'package:alcool_gasolina/CarrosListagem.dart';
-import 'package:alcool_gasolina/CarrosListagemController.dart';
 import 'package:alcool_gasolina/Home.dart';
 import 'package:alcool_gasolina/Resultado.dart';
 import 'package:alcool_gasolina/SplashScreen.dart';
-import 'package:alcool_gasolina/Start.dart';
 import 'package:flutter/material.dart';
 
 class RouteGeneretor {
@@ -19,7 +17,7 @@ class RouteGeneretor {
 
     switch (settings.name) {
       case ROTA_HOME:
-        return MaterialPageRoute(builder: (_) => Start());
+        return MaterialPageRoute(builder: (_) => Home());
       case ROTA_SPLASH:
         return MaterialPageRoute(builder: (_) => SplashScreen());
       case ROTA_CARROS:

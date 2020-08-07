@@ -1,4 +1,4 @@
-import 'package:alcool_gasolina/Menu.dart';
+/* import 'package:alcool_gasolina/Menu.dart';
 import 'package:alcool_gasolina/Home.dart';
 import 'package:flutter/material.dart';
 
@@ -80,3 +80,4 @@ class _StartState extends State<Start> with SingleTickerProviderStateMixin {
     );
   }
 }
+ */
