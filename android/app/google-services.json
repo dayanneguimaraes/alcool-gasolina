@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "305919960161",
+    "firebase_url": "https://etanol-ou-gasolina-b21ca.firebaseio.com",
+    "project_id": "etanol-ou-gasolina-b21ca",
+    "storage_bucket": "etanol-ou-gasolina-b21ca.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:305919960161:android:43c44b8dc348e281fe7620",
+        "android_client_info": {
+          "package_name": "com.pinksplash.alcool.gasolina"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "305919960161-j39tuevt3g8t482296d7k1dhtq66g4kv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4vUfLV48iQbK1FWYNDg-o8lJd0CCXXl0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "305919960161-j39tuevt3g8t482296d7k1dhtq66g4kv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

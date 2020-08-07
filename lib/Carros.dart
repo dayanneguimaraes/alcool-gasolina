@@ -64,10 +64,11 @@ class _CarrosState extends State<Carros> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.red,
-        leading: GestureDetector(
-          onTap: widget.onTap,
-          child: Icon(Icons.menu),
-        ),
+        automaticallyImplyLeading: true,
+        // leading: GestureDetector(
+        //   onTap: widget.onTap,
+        //   child: Icon(Icons.menu),
+        // ),
         title: Text(
           "Etanol ou Gasolina",
           style: TextStyle(fontWeight: FontWeight.bold),

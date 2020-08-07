@@ -30,6 +30,9 @@ class _CarrosListagemState extends State<CarrosListagem> {
             ),
             // textAlign: TextAlign.center,
           ),
+          onLongPress: () {
+            // do something else
+          },
           subtitle: Text("Consumo Etanol"),
         )
       ]),
@@ -72,29 +75,16 @@ class _CarrosListagemState extends State<CarrosListagem> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             _listCarros(),
-            Padding(
-              padding: EdgeInsets.only(top: 10),
-              child: RaisedButton(
-                color: Colors.red,
-                textColor: Colors.white,
-                padding: EdgeInsets.all(15),
-                child: Text(
-                  "Salvar",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                onPressed: () {
-                  // carrosController.salvar();
-                  // Navigator.pushReplacementNamed(
-                  //     context, RouteGeneretor.ROTA_HOME);
-                },
-              ),
-            ),
           ],
         ),
       )),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushReplacementNamed(context, RouteGeneretor.ROTA_CARROS);
+        },
+        child: Icon(Icons.add),
+        backgroundColor: Colors.red,
+      ),
     );
   }
 }
