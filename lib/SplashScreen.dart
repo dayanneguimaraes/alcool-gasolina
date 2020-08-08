@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:alcool_gasolina/Home.dart';
 import 'package:flutter/material.dart';
 
 import 'Start.dart';
@@ -17,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => Start(),
+          builder: (context) => Home(),
         ),
       );
     });

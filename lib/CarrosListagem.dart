@@ -3,6 +3,8 @@ import 'package:alcool_gasolina/RouteGenerator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
+import 'Menu.dart';
+
 class CarrosListagem extends StatefulWidget {
   final Function onTap;
   const CarrosListagem({Key key, this.onTap}) : super(key: key);
@@ -12,18 +14,34 @@ class CarrosListagem extends StatefulWidget {
 }
 
 class _CarrosListagemState extends State<CarrosListagem> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   CarrosListagemController carrosController = CarrosListagemController();
 
-  List carros = new List();
+  var carros = [];
   // var carros = [];
+  void listar() {
+    carrosController.listar().then((value) {
+      setState(() {
+        carros = value;
+      });
+    });
+  }
 
   @override
   void initState() {
-    carros = carrosController.listar();
+    listar();
     // carros = carrosController.carros;
     // print(carros); */
+    print('entrou aqui ==========================${carros}');
+
     super.initState();
   }
+
+  // @override
+  // void didChangeDependencies() {
+  //   listar();
+  //   super.didChangeDependencies();
+  // }
 
   void onEditar() {
     Navigator.pushReplacementNamed(context, RouteGeneretor.ROTA_CARROS);
@@ -32,16 +50,21 @@ class _CarrosListagemState extends State<CarrosListagem> {
   void onExcluir(id) {
     print('id: ' + id);
     carrosController.excluir(id);
-    carros = carrosController.listar();
+    // carros = carrosController.listar();
+    listar();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         backgroundColor: Colors.red,
         leading: GestureDetector(
-          onTap: widget.onTap,
+          //onTap: widget.onTap,
+          onTap: () {
+            _scaffoldKey.currentState.openDrawer();
+          },
           child: Icon(Icons.menu),
         ),
         title: Text(
@@ -50,6 +73,7 @@ class _CarrosListagemState extends State<CarrosListagem> {
         ),
       ),
       body: buidListView(carrosController, onEditar, onExcluir, carros),
+      drawer: Menu(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.pushReplacementNamed(context, RouteGeneretor.ROTA_CARROS);
@@ -62,6 +86,7 @@ class _CarrosListagemState extends State<CarrosListagem> {
 }
 
 buidListView(carrosController, onEditar, onExcluir, carros) {
+  print('teste aqui ==========================');
   // carrosController.listar();
   // carros = carrosController.carros;
   final itens = List.generate(carros.length, (i) => carros[i]);
