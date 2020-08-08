@@ -14,14 +14,25 @@ class CarrosListagem extends StatefulWidget {
 class _CarrosListagemState extends State<CarrosListagem> {
   CarrosListagemController carrosController = CarrosListagemController();
 
-  var carros;
+  List carros = new List();
+  // var carros = [];
 
   @override
   void initState() {
-    /*  carrosController.listar();
-    carros = carrosController.carros;
-    print(carros); */
+    carros = carrosController.listar();
+    // carros = carrosController.carros;
+    // print(carros); */
     super.initState();
+  }
+
+  void onEditar() {
+    Navigator.pushReplacementNamed(context, RouteGeneretor.ROTA_CARROS);
+  }
+
+  void onExcluir(id) {
+    print('id: ' + id);
+    carrosController.excluir(id);
+    carros = carrosController.listar();
   }
 
   @override
@@ -38,7 +49,7 @@ class _CarrosListagemState extends State<CarrosListagem> {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
-      body: buidListView(carrosController),
+      body: buidListView(carrosController, onEditar, onExcluir, carros),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.pushReplacementNamed(context, RouteGeneretor.ROTA_CARROS);
@@ -50,11 +61,10 @@ class _CarrosListagemState extends State<CarrosListagem> {
   }
 }
 
-buidListView(carrosController) {
-  carrosController.listar();
-  var a = carrosController.carros;
-  print(a);
-  final itens = List.generate(a.length, (i) => a[i]['nome']);
+buidListView(carrosController, onEditar, onExcluir, carros) {
+  // carrosController.listar();
+  // carros = carrosController.carros;
+  final itens = List.generate(carros.length, (i) => carros[i]);
   return ListView.builder(
     itemCount: itens.length,
     itemBuilder: (context, index) {
@@ -67,13 +77,13 @@ buidListView(carrosController) {
             caption: 'Editar',
             color: Colors.black45,
             icon: Icons.edit,
-            onTap: () => {},
+            onTap: onEditar,
           ),
           IconSlideAction(
             caption: 'Excluir',
             color: Colors.red,
             icon: Icons.delete,
-            onTap: () => {},
+            onTap: () => {onExcluir(itens[index]['id'].toString())},
           ),
         ],
         child: Card(
@@ -86,7 +96,7 @@ buidListView(carrosController) {
                   color: Colors.red,
                 ),
                 title: Text(
-                  "Carro: ${itens[index]}",
+                  "Carro: ${itens[index]['nome']}",
                   style: TextStyle(
                     fontSize: 15,
                     color: Colors.black87,
@@ -97,7 +107,7 @@ buidListView(carrosController) {
                 onLongPress: () {
                   // do something else
                 },
-                subtitle: Text("Consumo Etanol"),
+                subtitle: Text("Consumo Etanol:"),
               )
             ],
           ),

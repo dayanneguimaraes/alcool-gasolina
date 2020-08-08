@@ -51,4 +51,10 @@ class CarrosListagemController {
     carros = await bd.rawQuery(sql);
     //print("Lista: $carros");
   }
+
+  excluir(id) async {
+    Database bd = await _recuperarBancoDados();
+
+    bd.delete('carros', where: "id = ?", whereArgs: [id]);
+  }
 }
