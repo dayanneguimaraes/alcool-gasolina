@@ -2,7 +2,6 @@ import 'dart:ffi';
 
 import 'package:alcool_gasolina/Carro.dart';
 import 'package:alcool_gasolina/CarroHelp.dart';
-import 'package:alcool_gasolina/CarrosController.dart';
 import 'package:alcool_gasolina/RouteGenerator.dart';
 import 'package:flutter/material.dart';
 
