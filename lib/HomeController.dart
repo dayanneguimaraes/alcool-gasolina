@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
+import 'package:flutter_masked_text/flutter_masked_text.dart';
 
 class HomeController {
-  TextEditingController controllerAlcool = TextEditingController();
-  TextEditingController controllerGasolina = TextEditingController();
+  MaskedTextController controllerAlcool = MaskedTextController(mask: '0.00');
+  MaskedTextController controllerGasolina = MaskedTextController(mask: '0.00');
   String textoResultado = "";
 
   String _carro = "a";
@@ -11,11 +11,7 @@ class HomeController {
     double precoAlcool = double.tryParse(controllerAlcool.text);
     double precoGasolina = double.tryParse(controllerGasolina.text);
 
-    if (precoAlcool == null || precoGasolina == null) {
-      //Apresentar erro
-    } else {
-      double resultado = precoAlcool / precoGasolina;
-      textoResultado = resultado < 0.7 ? "Etanol" : "Gasolina";
-    }
+    double resultado = precoAlcool / precoGasolina;
+    textoResultado = resultado < 0.7 ? "Etanol" : "Gasolina";
   }
 }

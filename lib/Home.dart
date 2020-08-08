@@ -1,3 +1,5 @@
+import 'package:alcool_gasolina/Carro.dart';
+import 'package:alcool_gasolina/CarroHelp.dart';
 import 'package:alcool_gasolina/CarrosListagemController.dart';
 import 'package:alcool_gasolina/HomeController.dart';
 import 'package:alcool_gasolina/Menu.dart';
@@ -19,10 +21,12 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   var homeController = new HomeController();
-  CarrosListagemController carrosController = CarrosListagemController();
   String carro = "";
   FocusNode alcoolFocus;
   FocusNode gasolinaFocus;
+
+  List<Carro> _carroList = [];
+  CarroHelper _helper = CarroHelper();
 
   @override
   void initState() {
@@ -30,6 +34,11 @@ class _HomeState extends State<Home> {
     AdMobService().mostrarBanner();
     alcoolFocus = FocusNode();
     gasolinaFocus = FocusNode();
+    _helper.getAll().then((value) {
+      setState(() {
+        _carroList = value;
+      });
+    });
   }
 
   @override
@@ -104,10 +113,8 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    carrosController.listar();
-    var listaCarros = carrosController.carros;
     final listaNome =
-        List.generate(listaCarros.length, (i) => listaCarros[i]['nome']);
+        List.generate(_carroList.length, (i) => _carroList[i].nome);
 
     return WillPopScope(
       onWillPop: () {
