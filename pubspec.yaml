@@ -31,6 +31,7 @@ dependencies:
   sqflite: ^1.3.0
   firebase_admob: ^0.9.3+4
   flutter_slidable: ^0.5.5
+  flushbar: ^1.10.4
 
 dev_dependencies:
   flutter_test:
