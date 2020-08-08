@@ -1,21 +1,33 @@
+import 'dart:ffi';
+
+import 'package:alcool_gasolina/Carro.dart';
+import 'package:alcool_gasolina/CarroHelp.dart';
 import 'package:alcool_gasolina/CarrosController.dart';
 import 'package:alcool_gasolina/RouteGenerator.dart';
 import 'package:flutter/material.dart';
 
 class Carros extends StatefulWidget {
   final Function onTap;
-  const Carros({Key key, this.onTap}) : super(key: key);
+  final Carro carro;
+  const Carros({Key key, this.onTap, this.carro}) : super(key: key);
 
   @override
   _CarrosState createState() => _CarrosState();
 }
 
 class _CarrosState extends State<Carros> {
-  CarrosController carrosController = CarrosController();
+  CarroHelper _helper = CarroHelper();
+  TextEditingController controllerNome = TextEditingController();
+  TextEditingController controllerConsumoEtanol = TextEditingController();
+  TextEditingController controllerConsumoGasolina = TextEditingController();
+  TextEditingController controllerTamanhoTanque = TextEditingController();
+
   FocusNode nomeFocus;
   FocusNode consumoEtanolFocus;
   FocusNode consumoGasolinaFocus;
   FocusNode tamanhoTanqueFocus;
+
+  Carro _currentCarro = Carro();
 
   @override
   void initState() {
@@ -24,10 +36,24 @@ class _CarrosState extends State<Carros> {
     consumoEtanolFocus = FocusNode();
     consumoGasolinaFocus = FocusNode();
     tamanhoTanqueFocus = FocusNode();
+
+    if (widget.carro != null) {
+      _currentCarro = Carro.fromMap(widget.carro.toMap());
+    }
+
+    controllerNome.text = _currentCarro.nome;
+    controllerConsumoEtanol.text = _currentCarro.consumoEtanol.toString();
+    controllerConsumoGasolina.text = _currentCarro.consumoGasolina.toString();
+    controllerTamanhoTanque.text = _currentCarro.tamanhoTanque.toString();
   }
 
   @override
   void dispose() {
+    controllerNome.clear();
+    controllerConsumoEtanol.clear();
+    controllerConsumoGasolina.clear();
+    controllerTamanhoTanque.clear();
+
     nomeFocus.dispose();
     consumoEtanolFocus.dispose();
     consumoGasolinaFocus.dispose();
@@ -57,6 +83,22 @@ class _CarrosState extends State<Carros> {
     setState(() {
       FocusScope.of(context).requestFocus(tamanhoTanqueFocus);
     });
+  }
+
+  void _salvar() {
+    _currentCarro.nome = controllerNome.value.text;
+    // _currentCarro.consumoEtanol =  controllerConsumoEtanol.value.text;
+    // _currentCarro.consumoGasolina = controllerConsumoGasolina.value.text;
+    // _currentCarro.tamanhoTanque = controllerTamanhoTanque.value.text;
+    // Navigator.of(context).pop(_currentCarro);
+
+    if (_currentCarro.id == null) {
+      _helper.save(_currentCarro);
+    } else {
+      _helper.update(_currentCarro);
+    }
+    Navigator.pushReplacementNamed(
+        context, RouteGeneretor.ROTA_LISTAGEM_CARROS);
   }
 
   @override
@@ -95,7 +137,7 @@ class _CarrosState extends State<Carros> {
               style: TextStyle(
                 fontSize: 22,
               ),
-              controller: carrosController.controllerNome,
+              controller: controllerNome,
               cursorColor: Colors.red,
             ),
             TextField(
@@ -113,7 +155,7 @@ class _CarrosState extends State<Carros> {
               style: TextStyle(
                 fontSize: 22,
               ),
-              controller: carrosController.controllerConsumoEtanol,
+              controller: controllerConsumoEtanol,
               cursorColor: Colors.red,
             ),
             TextField(
@@ -131,7 +173,7 @@ class _CarrosState extends State<Carros> {
               style: TextStyle(
                 fontSize: 22,
               ),
-              controller: carrosController.controllerConsumoGasolina,
+              controller: controllerConsumoGasolina,
               cursorColor: Colors.red,
             ),
             TextField(
@@ -149,7 +191,7 @@ class _CarrosState extends State<Carros> {
               style: TextStyle(
                 fontSize: 22,
               ),
-              controller: carrosController.controllerTamanhoTanque,
+              controller: controllerTamanhoTanque,
               cursorColor: Colors.red,
             ),
             Padding(
@@ -159,16 +201,14 @@ class _CarrosState extends State<Carros> {
                 textColor: Colors.white,
                 padding: EdgeInsets.all(15),
                 child: Text(
-                  "Salvar",
+                  "${_currentCarro.id != null ? 'Editar' : 'Salvar'}",
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 onPressed: () {
-                  carrosController.salvar();
-                  // Navigator.pushReplacementNamed(
-                  //     context, RouteGeneretor.ROTA_HOME);
+                  _salvar();
                 },
               ),
             ),

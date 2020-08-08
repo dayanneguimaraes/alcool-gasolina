@@ -11,6 +11,7 @@ class RouteGeneretor {
   static const String ROTA_CARROS = "/carro";
   static const String ROTA_RESULTADO = "/resultados";
   static const String ROTA_LISTAGEM_CARROS = "/listagemCarros";
+  static const String ROTA_EDICAO_CARRO = "/edicaoCarro";
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final args = settings.arguments;
@@ -22,6 +23,11 @@ class RouteGeneretor {
         return MaterialPageRoute(builder: (_) => SplashScreen());
       case ROTA_CARROS:
         return MaterialPageRoute(builder: (_) => Carros());
+      case ROTA_EDICAO_CARRO:
+        return MaterialPageRoute(
+            builder: (_) => Carros(carro: settings.arguments));
+
+      // ew MaterialPageRoute(settings: const RouteSettings(name: '/form'), builder: (context) => new FormPage(email: 'myemail@flutter.com', header: {'auth': '1234'}))
       case ROTA_RESULTADO:
         return MaterialPageRoute(builder: (_) => Resultado());
       case ROTA_LISTAGEM_CARROS:

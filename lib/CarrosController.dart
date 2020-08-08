@@ -1,3 +1,4 @@
+import 'package:alcool_gasolina/Carro.dart';
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
@@ -7,6 +8,9 @@ class CarrosController {
   TextEditingController controllerConsumoEtanol = TextEditingController();
   TextEditingController controllerConsumoGasolina = TextEditingController();
   TextEditingController controllerTamanhoTanque = TextEditingController();
+  final Carro carro;
+
+  CarrosController(this.carro);
 
   _recuperarBancoDados() async {
     final caminhoBancoDados = await getDatabasesPath();

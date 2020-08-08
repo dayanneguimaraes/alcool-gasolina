@@ -48,13 +48,21 @@ class CarrosListagemController {
 
     String sql = "SELECT * FROM carros";
 
-    carros = await bd.rawQuery(sql);
+    List listaCarros = await bd.rawQuery(sql);
+    // List
     //print("Lista: $carros");
   }
 
-  excluir(id) async {
+  Future<int> excluir(int id) async {
     Database bd = await _recuperarBancoDados();
 
-    bd.delete('carros', where: "id = ?", whereArgs: [id]);
+    return await bd.delete('carros', where: "id = ?", whereArgs: [id]);
   }
 }
+
+// Future<List<Task>> getAll() async {
+//     Database database = await db;
+//     List listMap = await database.rawQuery("SELECT * FROM task");
+//     List<Task> stuffList = listMap.map((x) => Task.fromMap(x)).toList();
+//     return stuffList;
+//   }
