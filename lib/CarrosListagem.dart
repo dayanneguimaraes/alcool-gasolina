@@ -45,30 +45,35 @@ class _CarrosListagemState extends State<CarrosListagem> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      appBar: AppBar(
-        backgroundColor: Colors.red,
-        leading: GestureDetector(
-          //onTap: widget.onTap,
-          onTap: () {
-            _scaffoldKey.currentState.openDrawer();
+    return WillPopScope(
+      onWillPop: () {
+        Navigator.pushReplacementNamed(context, RouteGeneretor.ROTA_HOME);
+      },
+      child: Scaffold(
+        key: _scaffoldKey,
+        appBar: AppBar(
+          backgroundColor: Colors.red,
+          leading: GestureDetector(
+            //onTap: widget.onTap,
+            onTap: () {
+              _scaffoldKey.currentState.openDrawer();
+            },
+            child: Icon(Icons.menu),
+          ),
+          title: Text(
+            "Etanol ou Gasolina",
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ),
+        body: buidListView(),
+        drawer: Menu(),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.pushReplacementNamed(context, RouteGeneretor.ROTA_CARROS);
           },
-          child: Icon(Icons.menu),
+          child: Icon(Icons.add),
+          backgroundColor: Colors.red,
         ),
-        title: Text(
-          "Etanol ou Gasolina",
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-      ),
-      body: buidListView(),
-      drawer: Menu(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushReplacementNamed(context, RouteGeneretor.ROTA_CARROS);
-        },
-        child: Icon(Icons.add),
-        backgroundColor: Colors.red,
       ),
     );
   }
