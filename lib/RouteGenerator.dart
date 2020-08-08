@@ -6,7 +6,7 @@ import 'package:alcool_gasolina/SplashScreen.dart';
 import 'package:flutter/material.dart';
 
 class RouteGeneretor {
-  static const String ROTA_HOME = "/";
+  static const String ROTA_HOME = "/home";
   static const String ROTA_SPLASH = "/splash";
   static const String ROTA_CARROS = "/carro";
   static const String ROTA_RESULTADO = "/resultados";
