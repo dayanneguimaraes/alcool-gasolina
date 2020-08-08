@@ -3,6 +3,8 @@ import 'package:alcool_gasolina/RouteGenerator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
+import 'Menu.dart';
+
 class CarrosListagem extends StatefulWidget {
   final Function onTap;
   const CarrosListagem({Key key, this.onTap}) : super(key: key);
@@ -12,6 +14,7 @@ class CarrosListagem extends StatefulWidget {
 }
 
 class _CarrosListagemState extends State<CarrosListagem> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   CarrosListagemController carrosController = CarrosListagemController();
 
   var carros;
@@ -27,10 +30,14 @@ class _CarrosListagemState extends State<CarrosListagem> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         backgroundColor: Colors.red,
         leading: GestureDetector(
-          onTap: widget.onTap,
+          //onTap: widget.onTap,
+          onTap: () {
+            _scaffoldKey.currentState.openDrawer();
+          },
           child: Icon(Icons.menu),
         ),
         title: Text(
@@ -38,6 +45,7 @@ class _CarrosListagemState extends State<CarrosListagem> {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
+      drawer: Menu(),
       body: buidListView(carrosController),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

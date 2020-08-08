@@ -1,5 +1,6 @@
 import 'package:alcool_gasolina/RouteGenerator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class Menu extends StatefulWidget {
   @override
@@ -26,16 +27,19 @@ class _MenuState extends State<Menu> {
         Divider(
           color: Colors.white,
         ),
-        _tiles("SAIR", Icons.close, 3, () {}),
+        _tiles("SAIR", Icons.close, 3, () => SystemNavigator.pop()),
       ],
     );
   }
 
   Widget _topoMenu() {
-    return Padding(
-      padding: EdgeInsets.all(18.0),
+    return DrawerHeader(
       child: Column(
         children: <Widget>[
+          Image.asset(
+            "images/logo.png",
+            width: 100,
+          ),
           Text(
             "Etanol ou Gasolina",
             style: TextStyle(
@@ -43,7 +47,7 @@ class _MenuState extends State<Menu> {
               fontWeight: FontWeight.bold,
               color: Colors.white,
             ),
-          )
+          ),
         ],
       ),
     );
@@ -67,12 +71,13 @@ class _MenuState extends State<Menu> {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
+    return Drawer(
       child: Container(
-          width: double.infinity,
-          height: double.infinity,
-          color: Colors.red,
-          child: _listMenu()),
+        width: double.infinity,
+        height: double.infinity,
+        color: Colors.red,
+        child: _listMenu(),
+      ),
     );
   }
 }

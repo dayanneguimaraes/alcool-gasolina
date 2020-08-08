@@ -62,42 +62,7 @@ class _HomeState extends State<Home> {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
-      drawer: Drawer(
-        child: Menu(),
-        /*  child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              child: Text(
-                "Etanol ou Gasolina",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-              decoration: BoxDecoration(
-                color: Colors.red,
-              ),
-            ),
-            ListTile(
-              title: Text('Item 1'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: Text('Item 2'),
-              onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
-                Navigator.pop(context);
-              },
-            ),
-          ],
-        ), */
-      ),
+      drawer: Menu(),
       body: Container(
         child: SingleChildScrollView(
           padding: EdgeInsets.all(32),
