@@ -3,8 +3,19 @@ import 'package:flutter/material.dart';
 
 class Resultado extends StatefulWidget {
   final String resultado;
+  final String porcentagemEconomia;
+  final String valorEconomia;
+  final String autonomiaEtanol;
+  final String autonomiaGasolina;
 
-  const Resultado({Key key, this.resultado}) : super(key: key);
+  const Resultado(
+      {Key key,
+      this.resultado,
+      this.porcentagemEconomia,
+      this.valorEconomia,
+      this.autonomiaEtanol,
+      this.autonomiaGasolina})
+      : super(key: key);
 
   @override
   _ResultadoState createState() => _ResultadoState();
@@ -65,7 +76,7 @@ class _ResultadoState extends State<Resultado> {
                       color: Colors.red,
                     ),
                     title: Text(
-                      "Porcentagem de Economia:",
+                      "Porcentagem de Economia: ${widget.porcentagemEconomia}",
                       style: TextStyle(
                         fontSize: 15,
                         color: Colors.black87,
@@ -87,7 +98,7 @@ class _ResultadoState extends State<Resultado> {
                       color: Colors.red,
                     ),
                     title: Text(
-                      "Valor de Economia:",
+                      "Valor de Economia: ${widget.valorEconomia}",
                       style: TextStyle(
                         fontSize: 15,
                         color: Colors.black87,
@@ -109,7 +120,7 @@ class _ResultadoState extends State<Resultado> {
                       color: Colors.red,
                     ),
                     title: Text(
-                      "Autonomia Etanol:",
+                      "Autonomia Etanol: ${widget.autonomiaEtanol}",
                       style: TextStyle(
                         fontSize: 15,
                         color: Colors.black87,
@@ -131,7 +142,7 @@ class _ResultadoState extends State<Resultado> {
                       color: Colors.red,
                     ),
                     title: Text(
-                      "Autonomia Gasolina:",
+                      "Autonomia Gasolina: ${widget.autonomiaGasolina}",
                       style: TextStyle(
                         fontSize: 15,
                         color: Colors.black87,

@@ -30,7 +30,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    //AdMobService().mostrarBanner();
+    AdMobService().mostrarBanner();
     alcoolFocus = FocusNode();
     gasolinaFocus = FocusNode();
     _helper.getAll().then((value) {
@@ -42,7 +42,7 @@ class _HomeState extends State<Home> {
 
   @override
   void dispose() {
-    //AdMobService().bannerAd.dispose();
+    AdMobService().bannerAd.dispose();
     alcoolFocus.dispose();
     gasolinaFocus.dispose();
     super.dispose();
@@ -232,6 +232,12 @@ class _HomeState extends State<Home> {
                           MaterialPageRoute(
                             builder: (context) => Resultado(
                               resultado: homeController.textoResultado,
+                              porcentagemEconomia:
+                                  homeController.porcentagemEconomia,
+                              valorEconomia: homeController.valorEconomia,
+                              autonomiaEtanol: homeController.autonomiaEtanol,
+                              autonomiaGasolina:
+                                  homeController.autonomiaGasolina,
                             ),
                           ),
                         );
