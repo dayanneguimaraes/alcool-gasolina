@@ -4,6 +4,7 @@ import 'package:alcool_gasolina/Carro.dart';
 import 'package:alcool_gasolina/CarroHelp.dart';
 import 'package:alcool_gasolina/RouteGenerator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_masked_text/flutter_masked_text.dart';
 
 class Carros extends StatefulWidget {
   final Function onTap;
@@ -17,9 +18,9 @@ class Carros extends StatefulWidget {
 class _CarrosState extends State<Carros> {
   CarroHelper _helper = CarroHelper();
   TextEditingController controllerNome = TextEditingController();
-  TextEditingController controllerConsumoEtanol = TextEditingController();
-  TextEditingController controllerConsumoGasolina = TextEditingController();
-  TextEditingController controllerTamanhoTanque = TextEditingController();
+  var controllerConsumoEtanol = MoneyMaskedTextController();
+  var controllerConsumoGasolina = MoneyMaskedTextController();
+  var controllerTamanhoTanque = MoneyMaskedTextController();
 
   FocusNode nomeFocus;
   FocusNode consumoEtanolFocus;
@@ -38,12 +39,21 @@ class _CarrosState extends State<Carros> {
 
     if (widget.carro != null) {
       _currentCarro = Carro.fromMap(widget.carro.toMap());
+      controllerNome.text =
+          _currentCarro.nome != null ? _currentCarro.nome : '';
+      controllerConsumoEtanol.text =
+          _currentCarro.consumoEtanol.toString() != null
+              ? _currentCarro.consumoEtanol.toString()
+              : '0,00';
+      controllerConsumoGasolina.text =
+          _currentCarro.consumoGasolina.toString() != null
+              ? _currentCarro.consumoGasolina.toString()
+              : '';
+      controllerTamanhoTanque.text =
+          _currentCarro.tamanhoTanque.toString() != null
+              ? _currentCarro.tamanhoTanque.toString()
+              : '';
     }
-
-    controllerNome.text = _currentCarro.nome;
-    controllerConsumoEtanol.text = _currentCarro.consumoEtanol.toString();
-    controllerConsumoGasolina.text = _currentCarro.consumoGasolina.toString();
-    controllerTamanhoTanque.text = _currentCarro.tamanhoTanque.toString();
   }
 
   @override
@@ -86,11 +96,14 @@ class _CarrosState extends State<Carros> {
 
   void _salvar() {
     _currentCarro.nome = controllerNome.value.text;
-    // _currentCarro.consumoEtanol =  controllerConsumoEtanol.value.text;
-    // _currentCarro.consumoGasolina = controllerConsumoGasolina.value.text;
-    // _currentCarro.tamanhoTanque = controllerTamanhoTanque.value.text;
+    _currentCarro.consumoEtanol = double.tryParse(controllerConsumoEtanol.text);
+    _currentCarro.consumoGasolina =
+        double.tryParse(controllerConsumoGasolina.text);
+    _currentCarro.tamanhoTanque = double.tryParse(controllerTamanhoTanque.text);
     // Navigator.of(context).pop(_currentCarro);
 
+    print("objeto ============================>" +
+        _currentCarro.consumoEtanol.toString());
     if (_currentCarro.id == null) {
       _helper.save(_currentCarro);
     } else {
@@ -102,118 +115,126 @@ class _CarrosState extends State<Carros> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.red,
-        leading: GestureDetector(
-          onTap: () {
-            Navigator.pushReplacementNamed(
-                context, RouteGeneretor.ROTA_LISTAGEM_CARROS);
-          },
-          child: Icon(Icons.arrow_back),
+    return WillPopScope(
+      onWillPop: () {
+        Navigator.pushReplacementNamed(
+            context, RouteGeneretor.ROTA_LISTAGEM_CARROS);
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.red,
+          leading: GestureDetector(
+            onTap: () {
+              Navigator.pushReplacementNamed(
+                  context, RouteGeneretor.ROTA_LISTAGEM_CARROS);
+            },
+            child: Icon(Icons.arrow_back),
+          ),
+          title: Text(
+            "Etanol ou Gasolina",
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
         ),
-        title: Text(
-          "Etanol ou Gasolina",
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-      ),
-      body: Container(
+        body: Container(
           child: SingleChildScrollView(
-        padding: EdgeInsets.all(32),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            TextField(
-              keyboardType: TextInputType.text,
-              focusNode: nomeFocus,
-              onTap: focusNome,
-              decoration: InputDecoration(
-                  labelText: "Nome",
-                  labelStyle: TextStyle(
-                      color: nomeFocus.hasFocus ? Colors.red : Colors.black38),
-                  focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.red))),
-              style: TextStyle(
-                fontSize: 22,
-              ),
-              controller: controllerNome,
-              cursorColor: Colors.red,
-            ),
-            TextField(
-              keyboardType: TextInputType.number,
-              focusNode: consumoEtanolFocus,
-              onTap: focusConsumoEtanol,
-              decoration: InputDecoration(
-                  labelText: "Consumo de Etanol (Km/litro)",
-                  labelStyle: TextStyle(
-                      color: consumoEtanolFocus.hasFocus
-                          ? Colors.red
-                          : Colors.black38),
-                  focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.red))),
-              style: TextStyle(
-                fontSize: 22,
-              ),
-              controller: controllerConsumoEtanol,
-              cursorColor: Colors.red,
-            ),
-            TextField(
-              keyboardType: TextInputType.number,
-              focusNode: consumoGasolinaFocus,
-              onTap: focusConsumoGasolina,
-              decoration: InputDecoration(
-                  labelText: "Consumo da Gasolina (Km/litro)",
-                  labelStyle: TextStyle(
-                      color: consumoGasolinaFocus.hasFocus
-                          ? Colors.red
-                          : Colors.black38),
-                  focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.red))),
-              style: TextStyle(
-                fontSize: 22,
-              ),
-              controller: controllerConsumoGasolina,
-              cursorColor: Colors.red,
-            ),
-            TextField(
-              keyboardType: TextInputType.number,
-              focusNode: tamanhoTanqueFocus,
-              onTap: focusTamanhoTanque,
-              decoration: InputDecoration(
-                  labelText: "Tamanho do Tanque (litro)",
-                  labelStyle: TextStyle(
-                      color: tamanhoTanqueFocus.hasFocus
-                          ? Colors.red
-                          : Colors.black38),
-                  focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.red))),
-              style: TextStyle(
-                fontSize: 22,
-              ),
-              controller: controllerTamanhoTanque,
-              cursorColor: Colors.red,
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 10),
-              child: RaisedButton(
-                color: Colors.red,
-                textColor: Colors.white,
-                padding: EdgeInsets.all(15),
-                child: Text(
-                  "${_currentCarro.id != null ? 'Editar' : 'Salvar'}",
+            padding: EdgeInsets.all(32),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                TextField(
+                  keyboardType: TextInputType.text,
+                  focusNode: nomeFocus,
+                  onTap: focusNome,
+                  decoration: InputDecoration(
+                      labelText: "Nome",
+                      labelStyle: TextStyle(
+                          color:
+                              nomeFocus.hasFocus ? Colors.red : Colors.black38),
+                      focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.red))),
                   style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+                    fontSize: 22,
+                  ),
+                  controller: controllerNome,
+                  cursorColor: Colors.red,
+                ),
+                TextField(
+                  keyboardType: TextInputType.number,
+                  focusNode: consumoEtanolFocus,
+                  onTap: focusConsumoEtanol,
+                  decoration: InputDecoration(
+                      labelText: "Consumo de Etanol (Km/litro)",
+                      labelStyle: TextStyle(
+                          color: consumoEtanolFocus.hasFocus
+                              ? Colors.red
+                              : Colors.black38),
+                      focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.red))),
+                  style: TextStyle(
+                    fontSize: 22,
+                  ),
+                  controller: controllerConsumoEtanol,
+                  cursorColor: Colors.red,
+                ),
+                TextField(
+                  keyboardType: TextInputType.number,
+                  focusNode: consumoGasolinaFocus,
+                  onTap: focusConsumoGasolina,
+                  decoration: InputDecoration(
+                      labelText: "Consumo da Gasolina (Km/litro)",
+                      labelStyle: TextStyle(
+                          color: consumoGasolinaFocus.hasFocus
+                              ? Colors.red
+                              : Colors.black38),
+                      focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.red))),
+                  style: TextStyle(
+                    fontSize: 22,
+                  ),
+                  controller: controllerConsumoGasolina,
+                  cursorColor: Colors.red,
+                ),
+                TextField(
+                  keyboardType: TextInputType.number,
+                  focusNode: tamanhoTanqueFocus,
+                  onTap: focusTamanhoTanque,
+                  decoration: InputDecoration(
+                      labelText: "Tamanho do Tanque (litro)",
+                      labelStyle: TextStyle(
+                          color: tamanhoTanqueFocus.hasFocus
+                              ? Colors.red
+                              : Colors.black38),
+                      focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.red))),
+                  style: TextStyle(
+                    fontSize: 22,
+                  ),
+                  controller: controllerTamanhoTanque,
+                  cursorColor: Colors.red,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 10),
+                  child: RaisedButton(
+                    color: Colors.red,
+                    textColor: Colors.white,
+                    padding: EdgeInsets.all(15),
+                    child: Text(
+                      "${_currentCarro.id != null ? 'Editar' : 'Salvar'}",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    onPressed: () {
+                      _salvar();
+                    },
                   ),
                 ),
-                onPressed: () {
-                  _salvar();
-                },
-              ),
+              ],
             ),
-          ],
+          ),
         ),
-      )),
+      ),
     );
   }
 }

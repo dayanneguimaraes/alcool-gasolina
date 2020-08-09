@@ -32,9 +32,9 @@ class CarroHelper {
   }
 
   Future<Carro> save(Carro carro) async {
+    print("Salvo: " + carro.toString());
     Database database = await db;
     carro.id = await database.insert('carros', carro.toMap());
-    print("Salvo: $carro");
     return carro;
   }
 
@@ -62,11 +62,12 @@ class CarroHelper {
     Database database = await db;
     List listMap = await database.rawQuery("SELECT * FROM carros");
     List<Carro> stuffList = listMap.map((x) => Carro.fromMap(x)).toList();
-    print("Salvo: $stuffList");
+    print("obter ===========================>: $listMap");
     return stuffList;
   }
 
   Future<int> update(Carro carro) async {
+    print("update Carro ===========================>: $carro");
     Database database = await db;
     return await database.update('carros', carro.toMap(),
         where: 'id = ?', whereArgs: [carro.id]);
