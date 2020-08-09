@@ -96,11 +96,12 @@ class _CarrosState extends State<Carros> {
 
   void _salvar() {
     _currentCarro.nome = controllerNome.value.text;
-    _currentCarro.consumoEtanol = double.tryParse(controllerConsumoEtanol.text);
+    _currentCarro.consumoEtanol =
+        double.tryParse(controllerConsumoEtanol.text.replaceAll(',', '.'));
     _currentCarro.consumoGasolina =
-        double.tryParse(controllerConsumoGasolina.text);
-    _currentCarro.tamanhoTanque = double.tryParse(controllerTamanhoTanque.text);
-    // Navigator.of(context).pop(_currentCarro);
+        double.tryParse(controllerConsumoGasolina.text.replaceAll(',', '.'));
+    _currentCarro.tamanhoTanque =
+        double.tryParse(controllerTamanhoTanque.text.replaceAll(',', '.'));
 
     print("objeto ============================>" +
         _currentCarro.consumoEtanol.toString());
