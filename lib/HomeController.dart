@@ -26,10 +26,21 @@ class HomeController {
       CarroHelper _helper = CarroHelper();
       _helper.getById(int.parse(carroId)).then((value) {
         carro = value;
+        double tamanhoTanque = carro.tamanhoTanque;
         double consumoEtanol = carro.consumoEtanol;
         double consumoGasolina = carro.consumoGasolina;
         double consumo = (consumoEtanol / consumoGasolina) - (1 / 100);
         textoResultado = resultado < consumo ? "Etanol" : "Gasolina";
+
+        double valorEtanol = tamanhoTanque * precoAlcool;
+        autonomiaEtanol = (consumoEtanol * tamanhoTanque).toString();
+
+        double valorGasolina = tamanhoTanque * precoGasolina;
+        autonomiaGasolina = (consumoGasolina * tamanhoTanque).toString();
+
+        valorEconomia = (valorGasolina - valorEtanol).toString();
+
+        porcentagemEconomia = ((valorGasolina - valorEtanol) * 100).toString();
       });
     }
   }
