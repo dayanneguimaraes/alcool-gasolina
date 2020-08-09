@@ -18,7 +18,7 @@ class AdMobService {
     return BannerAd(
       adUnitId: BannerAd.testAdUnitId,
       //adUnitId: 'ca-app-pub-1556568734938950/8886761927',
-      size: AdSize.smartBanner,
+      size: AdSize.banner,
       targetingInfo: targetingInfo,
       listener: (MobileAdEvent event) {
         //print("BannerAd event is $event");

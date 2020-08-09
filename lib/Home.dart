@@ -1,6 +1,5 @@
 import 'package:alcool_gasolina/Carro.dart';
 import 'package:alcool_gasolina/CarroHelp.dart';
-import 'package:alcool_gasolina/CarrosListagemController.dart';
 import 'package:alcool_gasolina/HomeController.dart';
 import 'package:alcool_gasolina/Menu.dart';
 import 'package:alcool_gasolina/Resultado.dart';

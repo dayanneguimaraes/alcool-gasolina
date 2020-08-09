@@ -2,9 +2,9 @@ import 'dart:ffi';
 
 import 'package:alcool_gasolina/Carro.dart';
 import 'package:alcool_gasolina/CarroHelp.dart';
-import 'package:alcool_gasolina/CarrosController.dart';
 import 'package:alcool_gasolina/RouteGenerator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_masked_text/flutter_masked_text.dart';
 
 class Carros extends StatefulWidget {
   final Function onTap;
@@ -18,9 +18,9 @@ class Carros extends StatefulWidget {
 class _CarrosState extends State<Carros> {
   CarroHelper _helper = CarroHelper();
   TextEditingController controllerNome = TextEditingController();
-  TextEditingController controllerConsumoEtanol = TextEditingController();
-  TextEditingController controllerConsumoGasolina = TextEditingController();
-  TextEditingController controllerTamanhoTanque = TextEditingController();
+  var controllerConsumoEtanol = MoneyMaskedTextController();
+  var controllerConsumoGasolina = MoneyMaskedTextController();
+  var controllerTamanhoTanque = MoneyMaskedTextController();
 
   FocusNode nomeFocus;
   FocusNode consumoEtanolFocus;
@@ -39,12 +39,21 @@ class _CarrosState extends State<Carros> {
 
     if (widget.carro != null) {
       _currentCarro = Carro.fromMap(widget.carro.toMap());
+      controllerNome.text =
+          _currentCarro.nome != null ? _currentCarro.nome : '';
+      controllerConsumoEtanol.text =
+          _currentCarro.consumoEtanol.toString() != null
+              ? _currentCarro.consumoEtanol.toString()
+              : '0,00';
+      controllerConsumoGasolina.text =
+          _currentCarro.consumoGasolina.toString() != null
+              ? _currentCarro.consumoGasolina.toString()
+              : '';
+      controllerTamanhoTanque.text =
+          _currentCarro.tamanhoTanque.toString() != null
+              ? _currentCarro.tamanhoTanque.toString()
+              : '';
     }
-
-    controllerNome.text = _currentCarro.nome;
-    controllerConsumoEtanol.text = _currentCarro.consumoEtanol.toString();
-    controllerConsumoGasolina.text = _currentCarro.consumoGasolina.toString();
-    controllerTamanhoTanque.text = _currentCarro.tamanhoTanque.toString();
   }
 
   @override
@@ -87,11 +96,14 @@ class _CarrosState extends State<Carros> {
 
   void _salvar() {
     _currentCarro.nome = controllerNome.value.text;
-    // _currentCarro.consumoEtanol =  controllerConsumoEtanol.value.text;
-    // _currentCarro.consumoGasolina = controllerConsumoGasolina.value.text;
-    // _currentCarro.tamanhoTanque = controllerTamanhoTanque.value.text;
+    _currentCarro.consumoEtanol = double.tryParse(controllerConsumoEtanol.text);
+    _currentCarro.consumoGasolina =
+        double.tryParse(controllerConsumoGasolina.text);
+    _currentCarro.tamanhoTanque = double.tryParse(controllerTamanhoTanque.text);
     // Navigator.of(context).pop(_currentCarro);
 
+    print("objeto ============================>" +
+        _currentCarro.consumoEtanol.toString());
     if (_currentCarro.id == null) {
       _helper.save(_currentCarro);
     } else {
