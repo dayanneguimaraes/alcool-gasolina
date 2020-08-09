@@ -17,24 +17,18 @@ class HomeController {
     Carro carro;
     CarroHelper _helper = CarroHelper();
     _helper.getById(int.parse(carroId)).then((value) {
-      print(value.consumoEtanol);
-      //carro = value as Carro;
+      carro = value;
     });
-
-/* List<Carro> _carroList = [];
-  CarroHelper _helper = CarroHelper();
-  _helper.getAll().then((value) {
-      setState(() {
-        _carroList = value;
-      });
-    }); */
 
     print(carroId);
     double resultado = precoAlcool / precoGasolina;
     if (carroId.isEmpty) {
       textoResultado = resultado < 0.7 ? "Etanol" : "Gasolina";
     } else {
-      textoResultado = "Teste";
+      double consumoEtanol = carro.consumoEtanol;
+      double consumoGasolina = carro.consumoGasolina;
+      double consumo = (consumoEtanol / consumoGasolina) - (1 / 100);
+      textoResultado = resultado < consumo ? "Etanol" : "Gasolina";
     }
   }
 }
