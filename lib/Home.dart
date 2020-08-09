@@ -20,7 +20,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   var homeController = new HomeController();
-  String carro = "";
+  //String carro = "";
   FocusNode alcoolFocus;
   FocusNode gasolinaFocus;
 
@@ -30,7 +30,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    AdMobService().mostrarBanner();
+    //AdMobService().mostrarBanner();
     alcoolFocus = FocusNode();
     gasolinaFocus = FocusNode();
     _helper.getAll().then((value) {
@@ -42,7 +42,7 @@ class _HomeState extends State<Home> {
 
   @override
   void dispose() {
-    AdMobService().bannerAd.dispose();
+    //AdMobService().bannerAd.dispose();
     alcoolFocus.dispose();
     gasolinaFocus.dispose();
     super.dispose();
@@ -124,7 +124,6 @@ class _HomeState extends State<Home> {
         appBar: AppBar(
           backgroundColor: Colors.red,
           leading: GestureDetector(
-            //onTap: widget.onTap,
             onTap: () {
               _scaffoldKey.currentState.openDrawer();
             },
@@ -182,7 +181,9 @@ class _HomeState extends State<Home> {
                   cursorColor: Colors.red,
                 ),
                 DropdownButton<String>(
-                  value: carro.isNotEmpty ? carro : null,
+                  value: homeController.carro.isNotEmpty
+                      ? homeController.carro
+                      : null,
                   isExpanded: true,
                   hint: Text(
                     "Selecione um carro",
@@ -197,7 +198,7 @@ class _HomeState extends State<Home> {
                   ),
                   onChanged: (String newValue) {
                     setState(() {
-                      carro = newValue;
+                      homeController.carro = newValue;
                     });
                   },
                   items: listaNome.map<DropdownMenuItem<String>>((value) {
