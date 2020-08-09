@@ -15,20 +15,19 @@ class HomeController {
     double precoGasolina = double.tryParse(controllerGasolina.text);
 
     Carro carro;
-    CarroHelper _helper = CarroHelper();
-    _helper.getById(int.parse(carroId)).then((value) {
-      carro = value;
-    });
 
-    print(carroId);
     double resultado = precoAlcool / precoGasolina;
     if (carroId.isEmpty) {
       textoResultado = resultado < 0.7 ? "Etanol" : "Gasolina";
     } else {
-      double consumoEtanol = carro.consumoEtanol;
-      double consumoGasolina = carro.consumoGasolina;
-      double consumo = (consumoEtanol / consumoGasolina) - (1 / 100);
-      textoResultado = resultado < consumo ? "Etanol" : "Gasolina";
+      CarroHelper _helper = CarroHelper();
+      _helper.getById(int.parse(carroId)).then((value) {
+        carro = value;
+        double consumoEtanol = carro.consumoEtanol;
+        double consumoGasolina = carro.consumoGasolina;
+        double consumo = (consumoEtanol / consumoGasolina) - (1 / 100);
+        textoResultado = resultado < consumo ? "Etanol" : "Gasolina";
+      });
     }
   }
 }

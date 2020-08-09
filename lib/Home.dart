@@ -30,7 +30,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    //AdMobService().mostrarBanner();
+    AdMobService().mostrarBanner();
     alcoolFocus = FocusNode();
     gasolinaFocus = FocusNode();
     _helper.getAll().then((value) {
@@ -42,7 +42,7 @@ class _HomeState extends State<Home> {
 
   @override
   void dispose() {
-    //AdMobService().bannerAd.dispose();
+    AdMobService().bannerAd.dispose();
     alcoolFocus.dispose();
     gasolinaFocus.dispose();
     super.dispose();
