@@ -113,8 +113,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    final listaNome =
-        List.generate(_carroList.length, (i) => _carroList[i].nome);
+    final lista = List.generate(_carroList.length, (i) => _carroList[i]);
 
     return WillPopScope(
       onWillPop: () {
@@ -182,8 +181,8 @@ class _HomeState extends State<Home> {
                   cursorColor: Colors.red,
                 ),
                 DropdownButton<String>(
-                  value: homeController.carro.isNotEmpty
-                      ? homeController.carro
+                  value: homeController.carroId.isNotEmpty
+                      ? homeController.carroId
                       : null,
                   isExpanded: true,
                   hint: Text(
@@ -199,13 +198,13 @@ class _HomeState extends State<Home> {
                   ),
                   onChanged: (String newValue) {
                     setState(() {
-                      homeController.carro = newValue;
+                      homeController.carroId = newValue;
                     });
                   },
-                  items: listaNome.map<DropdownMenuItem<String>>((value) {
+                  items: lista.map<DropdownMenuItem<String>>((Carro carro) {
                     return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
+                      value: carro.id.toString(),
+                      child: Text(carro.nome),
                     );
                   }).toList(),
                 ),
