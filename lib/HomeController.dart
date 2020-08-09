@@ -7,8 +7,11 @@ class HomeController {
   MaskedTextController controllerAlcool = MaskedTextController(mask: '0.00');
   MaskedTextController controllerGasolina = MaskedTextController(mask: '0.00');
   String textoResultado = "";
-
   String carroId = "";
+  String porcentagemEconomia = "";
+  String valorEconomia = "";
+  String autonomiaEtanol = "";
+  String autonomiaGasolina = "";
 
   calcular() {
     double precoAlcool = double.tryParse(controllerAlcool.text);

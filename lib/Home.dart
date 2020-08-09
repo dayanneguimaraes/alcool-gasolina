@@ -232,6 +232,12 @@ class _HomeState extends State<Home> {
                           MaterialPageRoute(
                             builder: (context) => Resultado(
                               resultado: homeController.textoResultado,
+                              porcentagemEconomia:
+                                  homeController.porcentagemEconomia,
+                              valorEconomia: homeController.valorEconomia,
+                              autonomiaEtanol: homeController.autonomiaEtanol,
+                              autonomiaGasolina:
+                                  homeController.autonomiaGasolina,
                             ),
                           ),
                         );
