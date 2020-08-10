@@ -117,12 +117,13 @@ class _CarrosListagemState extends State<CarrosListagem> {
                   ListTile(
                     leading: Icon(
                       Icons.directions_car,
+                      semanticLabel: "Ícone de carro",
                       color: Colors.red,
                     ),
                     title: Text(
                       "Carro: ${carro.nome}",
                       style: TextStyle(
-                        fontSize: 15,
+                        fontSize: 25,
                         color: Colors.black87,
                         fontWeight: FontWeight.bold,
                       ),
@@ -130,7 +131,24 @@ class _CarrosListagemState extends State<CarrosListagem> {
                     onLongPress: () {
                       // do something else
                     },
-                    subtitle: Text("Consumo Etanol: ${carro.consumoEtanol}"),
+                    // subtitle: Text("Consumo Etanol: ${carro.consumoEtanol}"),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          "Consumo Etanol: ${carro.consumoEtanol}",
+                          style: TextStyle(fontSize: 15),
+                        ),
+                        Text(
+                          "Consumo Gasolina: ${carro.consumoGasolina}",
+                          style: TextStyle(fontSize: 15),
+                        ),
+                        Text(
+                          "Tamanho Tanque: ${carro.tamanhoTanque}",
+                          style: TextStyle(fontSize: 15),
+                        )
+                      ],
+                    ),
                   )
                 ],
               ),
