@@ -6,6 +6,8 @@ import 'package:alcool_gasolina/RouteGenerator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 
+import 'Flushbar.dart';
+
 class Carros extends StatefulWidget {
   final Function onTap;
   final Carro carro;
@@ -227,7 +229,24 @@ class _CarrosState extends State<Carros> {
                       ),
                     ),
                     onPressed: () {
-                      _salvar();
+                      String mensagem = "";
+                      if (controllerNome.text == "") {
+                        mensagem += "Preencha o campo nome ";
+                      }
+                      if (controllerConsumoEtanol.text == "0,00") {
+                        mensagem += " consumo de etanol";
+                      }
+                      if (controllerConsumoGasolina.text == "0,00") {
+                        mensagem += "  consumo de gasolina";
+                      }
+                      if (controllerTamanhoTanque.text == "0,00") {
+                        mensagem += " tamanho do tanque";
+                      }
+                      if (mensagem != "") {
+                        mensagemAlerta(mensagem, context);
+                      } else {
+                        _salvar();
+                      }
                     },
                   ),
                 ),
