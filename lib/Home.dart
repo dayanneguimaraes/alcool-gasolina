@@ -172,10 +172,17 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                     onPressed: () {
+                      String mensagem = "";
                       if (homeController.controllerAlcool.text == "") {
-                        mensagemAlerta("Preencha o campo Etanol", context);
-                      } else if (homeController.controllerGasolina.text == "") {
-                        mensagemAlerta("Preencha o campo Gasolina", context);
+                        mensagem += ", Etanol ";
+                      }
+                      if (homeController.controllerGasolina.text == "") {
+                        mensagem += ", Gasolina ";
+                      }
+                      if (mensagem != "") {
+                        mensagem = mensagem.substring(1);
+                        mensagemAlerta(
+                            "Preencha o(s) campo(s): " + mensagem, context);
                       } else {
                         homeController.calcular();
                         Navigator.push(

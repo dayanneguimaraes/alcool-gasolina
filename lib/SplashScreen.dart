@@ -3,8 +3,6 @@ import 'dart:async';
 import 'package:alcool_gasolina/Home.dart';
 import 'package:flutter/material.dart';
 
-import 'Start.dart';
-
 class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState();
