@@ -231,19 +231,21 @@ class _CarrosState extends State<Carros> {
                     onPressed: () {
                       String mensagem = "";
                       if (controllerNome.text == "") {
-                        mensagem += "Preencha o campo nome ";
+                        mensagem += ", nome ";
                       }
                       if (controllerConsumoEtanol.text == "0,00") {
-                        mensagem += " consumo de etanol";
+                        mensagem += ", consumo de etanol";
                       }
                       if (controllerConsumoGasolina.text == "0,00") {
-                        mensagem += "  consumo de gasolina";
+                        mensagem += ", consumo de gasolina";
                       }
                       if (controllerTamanhoTanque.text == "0,00") {
-                        mensagem += " tamanho do tanque";
+                        mensagem += ", tamanho do tanque";
                       }
                       if (mensagem != "") {
-                        mensagemAlerta(mensagem, context);
+                        mensagem = mensagem.substring(1);
+                        mensagemAlerta(
+                            "Preencha o(s) campo(s): " + mensagem, context);
                       } else {
                         _salvar();
                       }

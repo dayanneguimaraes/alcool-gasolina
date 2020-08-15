@@ -3,8 +3,6 @@ import 'dart:async';
 import 'package:alcool_gasolina/Home.dart';
 import 'package:flutter/material.dart';
 
-import 'Start.dart';
-
 class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState();
@@ -33,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
           gradient: LinearGradient(
             begin: Alignment.topRight,
             end: Alignment.bottomLeft,
-            colors: [Colors.blue[200], Colors.blue[900]],
+            colors: [Colors.greenAccent, Colors.greenAccent[700]],
           ),
         ),
         child: Column(

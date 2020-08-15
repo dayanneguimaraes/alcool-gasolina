@@ -27,7 +27,7 @@ void mensagemAlerta(String mensagem, BuildContext context) {
         flushbar.dismiss();
       },
       child: Text(
-        "EXIT",
+        "SAIR",
         style: TextStyle(color: Colors.white),
       ),
     ),
