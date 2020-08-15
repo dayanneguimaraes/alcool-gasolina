@@ -93,7 +93,7 @@ class _ResultadoState extends State<Resultado> {
                       color: Colors.red,
                     ),
                     title: Text(
-                      "Valor de Economia em 100Km: ${widget.valorEconomia100km}",
+                      "Valor de Economia em 100Km: R\$ ${widget.valorEconomia100km}",
                       style: TextStyle(
                         fontSize: 15,
                         color: Colors.black87,
