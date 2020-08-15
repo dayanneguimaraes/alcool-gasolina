@@ -1,3 +1,4 @@
+import 'package:alcool_gasolina/RouteGenerator.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 
@@ -32,12 +33,10 @@ class AdMobService {
       //adUnitId: 'ca-app-pub-1556568734938950/4947516910',
       targetingInfo: targetingInfo,
       listener: (MobileAdEvent event) {
-        /* if (event == MobileAdEvent.opened ||
-            event == MobileAdEvent.failedToLoad)
-           Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => SexoPage()),
-          ); */
+        if (event == MobileAdEvent.opened ||
+            event == MobileAdEvent.failedToLoad) {
+          Navigator.pushReplacementNamed(context, RouteGeneretor.ROTA_HOME);
+        }
       },
     );
   }

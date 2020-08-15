@@ -16,6 +16,7 @@ class HomeController {
   String valorGasolina = "";
   String valorEtanol = "";
   String valorEconomia100km = "";
+  bool isCarroPadrao = true;
 
   double roundDouble(double value, int places) {
     double mod = pow(10.0, places);
@@ -31,7 +32,9 @@ class HomeController {
     double resultado = precoAlcool / precoGasolina;
     if (carroId.isEmpty) {
       textoResultado = resultado < 0.7 ? "Etanol" : "Gasolina";
+      isCarroPadrao = true;
     } else {
+      isCarroPadrao = false;
       CarroHelper _helper = CarroHelper();
       _helper.getById(int.parse(carroId)).then((value) {
         carro = value;

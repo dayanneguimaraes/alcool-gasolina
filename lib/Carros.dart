@@ -105,8 +105,6 @@ class _CarrosState extends State<Carros> {
     _currentCarro.tamanhoTanque =
         double.tryParse(controllerTamanhoTanque.text.replaceAll(',', '.'));
 
-    print("objeto ============================>" +
-        _currentCarro.consumoEtanol.toString());
     if (_currentCarro.id == null) {
       _helper.save(_currentCarro);
     } else {

@@ -21,7 +21,6 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   var homeController = new HomeController();
-  //String carro = "";
   FocusNode alcoolFocus;
   FocusNode gasolinaFocus;
 
@@ -199,6 +198,7 @@ class _HomeState extends State<Home> {
                                   homeController.autonomiaGasolina,
                               valorGasolina: homeController.valorGasolina,
                               valorEtanol: homeController.valorEtanol,
+                              isCarroPadrao: homeController.isCarroPadrao,
                             ),
                           ),
                         );
