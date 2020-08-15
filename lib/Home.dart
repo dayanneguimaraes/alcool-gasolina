@@ -185,10 +185,13 @@ class _HomeState extends State<Home> {
                               resultado: homeController.textoResultado,
                               porcentagemEconomia:
                                   homeController.porcentagemEconomia,
-                              valorEconomia: homeController.valorEconomia,
+                              valorEconomia100km:
+                                  homeController.valorEconomia100km,
                               autonomiaEtanol: homeController.autonomiaEtanol,
                               autonomiaGasolina:
                                   homeController.autonomiaGasolina,
+                              valorGasolina: homeController.valorGasolina,
+                              valorEtanol: homeController.valorEtanol,
                             ),
                           ),
                         );

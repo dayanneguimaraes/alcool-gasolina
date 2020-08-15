@@ -27,7 +27,7 @@ class CarroHelper {
     return openDatabase(path, version: 1,
         onCreate: (Database db, int newerVersion) async {
       await db.execute(
-          "CREATE TABLE carros (id INTEGER PRIMARY KEY AUTOINCREMENT, nome VARCHAR, consumoEtanol REAL, consumoGasolina REAL, tamanhoTanque REAL");
+          "CREATE TABLE carros (id INTEGER PRIMARY KEY AUTOINCREMENT, nome VARCHAR, consumoEtanol REAL, consumoGasolina REAL, tamanhoTanque REAL)");
     });
   }
 

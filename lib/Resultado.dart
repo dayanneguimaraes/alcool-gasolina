@@ -4,16 +4,20 @@ import 'package:flutter/material.dart';
 class Resultado extends StatefulWidget {
   final String resultado;
   final String porcentagemEconomia;
-  final String valorEconomia;
+  final String valorEconomia100km;
   final String autonomiaEtanol;
   final String autonomiaGasolina;
+  final String valorGasolina;
+  final String valorEtanol;
 
   const Resultado(
       {Key key,
       this.resultado,
       this.porcentagemEconomia,
-      this.valorEconomia,
+      this.valorEconomia100km,
       this.autonomiaEtanol,
+      this.valorGasolina,
+      this.valorEtanol,
       this.autonomiaGasolina})
       : super(key: key);
 
@@ -36,13 +40,6 @@ class _ResultadoState extends State<Resultado> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            // Padding(
-            //   padding: EdgeInsets.only(bottom: 32),
-            //   child: Image.asset(
-            //     "images/logo.png",
-            //     scale: 4,
-            //   ),
-            // ),
             Card(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -59,9 +56,7 @@ class _ResultadoState extends State<Resultado> {
                         color: Colors.black87,
                         fontWeight: FontWeight.bold,
                       ),
-                      // textAlign: TextAlign.center,
                     ),
-                    // subtitle: Text('Music by Julie Gable. Lyrics by Sidney Stein.'),
                   ),
                 ],
               ),
@@ -76,7 +71,7 @@ class _ResultadoState extends State<Resultado> {
                       color: Colors.red,
                     ),
                     title: Text(
-                      "Porcentagem de Economia: ${widget.porcentagemEconomia}",
+                      "Porcentagem de Economia em 100Km: ${widget.porcentagemEconomia}%",
                       style: TextStyle(
                         fontSize: 15,
                         color: Colors.black87,
@@ -98,7 +93,7 @@ class _ResultadoState extends State<Resultado> {
                       color: Colors.red,
                     ),
                     title: Text(
-                      "Valor de Economia: ${widget.valorEconomia}",
+                      "Valor de Economia em 100Km: ${widget.valorEconomia100km}",
                       style: TextStyle(
                         fontSize: 15,
                         color: Colors.black87,
@@ -120,7 +115,7 @@ class _ResultadoState extends State<Resultado> {
                       color: Colors.red,
                     ),
                     title: Text(
-                      "Autonomia Etanol: ${widget.autonomiaEtanol}",
+                      "Valor do tanque cheio com etanol é R\$ ${widget.valorEtanol} com Autonomia de ${widget.autonomiaEtanol}km",
                       style: TextStyle(
                         fontSize: 15,
                         color: Colors.black87,
@@ -142,7 +137,7 @@ class _ResultadoState extends State<Resultado> {
                       color: Colors.red,
                     ),
                     title: Text(
-                      "Autonomia Gasolina: ${widget.autonomiaGasolina}",
+                      "Valor Tanque cheio com Gasolina é R\$ ${widget.valorGasolina} com uma Autonomia de ${widget.autonomiaGasolina}km",
                       style: TextStyle(
                         fontSize: 15,
                         color: Colors.black87,

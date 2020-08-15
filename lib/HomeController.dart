@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:alcool_gasolina/CarroHelp.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 
@@ -9,9 +11,16 @@ class HomeController {
   String textoResultado = "";
   String carroId = "";
   String porcentagemEconomia = "";
-  String valorEconomia = "";
   String autonomiaEtanol = "";
   String autonomiaGasolina = "";
+  String valorGasolina = "";
+  String valorEtanol = "";
+  String valorEconomia100km = "";
+
+  double roundDouble(double value, int places) {
+    double mod = pow(10.0, places);
+    return ((value * mod).toDouble() / mod);
+  }
 
   calcular() {
     double precoAlcool = double.tryParse(controllerAlcool.text);
@@ -32,15 +41,49 @@ class HomeController {
         double consumo = (consumoEtanol / consumoGasolina) - (1 / 100);
         textoResultado = resultado < consumo ? "Etanol" : "Gasolina";
 
-        double valorEtanol = tamanhoTanque * precoAlcool;
-        autonomiaEtanol = (consumoEtanol * tamanhoTanque).toString();
+        // Calculo valor da economia de 100 km
+        double qtdLitros100kmEtanol = 100 / consumoEtanol;
+        double valor100kmEtanol = qtdLitros100kmEtanol * precoAlcool;
 
-        double valorGasolina = tamanhoTanque * precoGasolina;
-        autonomiaGasolina = (consumoGasolina * tamanhoTanque).toString();
+        double qtdLitros100Gasolina = 100 / consumoGasolina;
+        double valor100kmGasolina = qtdLitros100Gasolina * precoGasolina;
 
-        valorEconomia = (valorGasolina - valorEtanol).toString();
+        double valEconomia100km = 0;
+        double valorTotal = 0;
 
-        porcentagemEconomia = ((valorGasolina - valorEtanol) * 100).toString();
+        if (textoResultado == "Etanol") {
+          valEconomia100km = valor100kmGasolina - valor100kmEtanol;
+          valorTotal = valor100kmGasolina;
+        } else {
+          valEconomia100km = valor100kmEtanol - valor100kmGasolina;
+          valorTotal = valor100kmEtanol;
+        }
+
+        valorEconomia100km = roundDouble(valEconomia100km, 2).toString();
+        print('valorEtanol ----> $valorEconomia100km');
+        // Calculo da porcentagem de economia me 100Km
+        double porEconomia = (valEconomia100km / valorTotal) * 100;
+        porcentagemEconomia = roundDouble(porEconomia, 2).toString();
+        print('valorEtanol ----> $porcentagemEconomia');
+
+        // Calculo valor do tanque cheio
+        var valEtanol = tamanhoTanque * precoAlcool;
+        valorEtanol = roundDouble(valEtanol, 2).toString();
+        print('valorEtanol ----> $valEtanol');
+
+        var valGasolina = tamanhoTanque * precoGasolina;
+        valorGasolina = roundDouble(valGasolina, 2).toString();
+
+        // Calculo autonomia do carro
+        var autEtanol = consumoEtanol * tamanhoTanque;
+        autonomiaEtanol = autEtanol.toString();
+
+        var autGasolina = consumoGasolina * tamanhoTanque;
+        autonomiaGasolina = autGasolina.toString();
+
+        // valorEconomia = (valorGasolina - valorEtanol).toString();
+
+        // porcentagemEconomia = ((valorGasolina - valorEtanol) * 100).toString();
       });
     }
   }
