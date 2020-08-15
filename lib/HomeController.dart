@@ -19,7 +19,7 @@ class HomeController {
 
   double roundDouble(double value, int places) {
     double mod = pow(10.0, places);
-    return ((value * mod).toDouble() / mod);
+    return ((value * mod).round().toDouble() / mod);
   }
 
   calcular() {
@@ -60,16 +60,14 @@ class HomeController {
         }
 
         valorEconomia100km = roundDouble(valEconomia100km, 2).toString();
-        print('valorEtanol ----> $valorEconomia100km');
+
         // Calculo da porcentagem de economia me 100Km
         double porEconomia = (valEconomia100km / valorTotal) * 100;
         porcentagemEconomia = roundDouble(porEconomia, 2).toString();
-        print('valorEtanol ----> $porcentagemEconomia');
 
         // Calculo valor do tanque cheio
         var valEtanol = tamanhoTanque * precoAlcool;
         valorEtanol = roundDouble(valEtanol, 2).toString();
-        print('valorEtanol ----> $valEtanol');
 
         var valGasolina = tamanhoTanque * precoGasolina;
         valorGasolina = roundDouble(valGasolina, 2).toString();
@@ -80,10 +78,6 @@ class HomeController {
 
         var autGasolina = consumoGasolina * tamanhoTanque;
         autonomiaGasolina = autGasolina.toString();
-
-        // valorEconomia = (valorGasolina - valorEtanol).toString();
-
-        // porcentagemEconomia = ((valorGasolina - valorEtanol) * 100).toString();
       });
     }
   }
