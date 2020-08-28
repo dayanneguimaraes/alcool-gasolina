@@ -43,18 +43,29 @@ class _CarrosState extends State<Carros> {
       _currentCarro = Carro.fromMap(widget.carro.toMap());
       controllerNome.text =
           _currentCarro.nome != null ? _currentCarro.nome : '';
+
       controllerConsumoEtanol.text =
           _currentCarro.consumoEtanol.toString() != null
               ? _currentCarro.consumoEtanol.toString()
               : '0,00';
+      controllerConsumoEtanol.text = controllerConsumoEtanol.text.length == 4
+          ? controllerConsumoEtanol.text + '0'
+          : controllerConsumoEtanol.text;
       controllerConsumoGasolina.text =
           _currentCarro.consumoGasolina.toString() != null
               ? _currentCarro.consumoGasolina.toString()
               : '';
+      controllerConsumoGasolina.text =
+          controllerConsumoGasolina.text.length == 4
+              ? controllerConsumoGasolina.text + '0'
+              : controllerConsumoGasolina.text;
       controllerTamanhoTanque.text =
           _currentCarro.tamanhoTanque.toString() != null
               ? _currentCarro.tamanhoTanque.toString()
               : '';
+      controllerTamanhoTanque.text = controllerTamanhoTanque.text.length == 4
+          ? controllerTamanhoTanque.text + '0'
+          : controllerTamanhoTanque.text;
     }
   }
 

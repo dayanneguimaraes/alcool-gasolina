@@ -17,8 +17,8 @@ class AdMobService {
 
   BannerAd createBannerAd() {
     return BannerAd(
-      adUnitId: BannerAd.testAdUnitId,
-      //adUnitId: 'ca-app-pub-1556568734938950/8886761927',
+      // adUnitId: BannerAd.testAdUnitId,
+      adUnitId: 'ca-app-pub-1556568734938950/5553365030',
       size: AdSize.banner,
       targetingInfo: targetingInfo,
       listener: (MobileAdEvent event) {
@@ -29,8 +29,8 @@ class AdMobService {
 
   InterstitialAd createInterstitialAd(BuildContext context) {
     return InterstitialAd(
-      adUnitId: InterstitialAd.testAdUnitId,
-      //adUnitId: 'ca-app-pub-1556568734938950/4947516910',
+      // adUnitId: InterstitialAd.testAdUnitId,
+      adUnitId: 'ca-app-pub-1556568734938950/8993808798',
       targetingInfo: targetingInfo,
       listener: (MobileAdEvent event) {
         if (event == MobileAdEvent.opened ||

@@ -38,6 +38,12 @@ class _ResultadoState extends State<Resultado> {
           "Qual é melhor ?",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
+        leading: GestureDetector(
+          onTap: () {
+            AdMobService().mostrarInterstitial(context);
+          },
+          child: Icon(Icons.arrow_back),
+        ),
       ),
       body: Container(
         child: Column(

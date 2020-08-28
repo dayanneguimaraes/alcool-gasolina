@@ -183,25 +183,7 @@ class _HomeState extends State<Home> {
                         mensagemAlerta(
                             "Preencha o(s) campo(s): " + mensagem, context);
                       } else {
-                        homeController.calcular();
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Resultado(
-                              resultado: homeController.textoResultado,
-                              porcentagemEconomia:
-                                  homeController.porcentagemEconomia,
-                              valorEconomia100km:
-                                  homeController.valorEconomia100km,
-                              autonomiaEtanol: homeController.autonomiaEtanol,
-                              autonomiaGasolina:
-                                  homeController.autonomiaGasolina,
-                              valorGasolina: homeController.valorGasolina,
-                              valorEtanol: homeController.valorEtanol,
-                              isCarroPadrao: homeController.isCarroPadrao,
-                            ),
-                          ),
-                        );
+                        homeController.calcular(context);
                       }
                     },
                   ),

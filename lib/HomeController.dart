@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:alcool_gasolina/CarroHelp.dart';
+import 'package:alcool_gasolina/Resultado.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 
 import 'Carro.dart';
@@ -23,7 +25,7 @@ class HomeController {
     return ((value * mod).round().toDouble() / mod);
   }
 
-  calcular() {
+  calcular(context) {
     double precoAlcool = double.tryParse(controllerAlcool.text);
     double precoGasolina = double.tryParse(controllerGasolina.text);
 
@@ -83,6 +85,21 @@ class HomeController {
         autonomiaGasolina = autGasolina.toString();
       });
     }
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Resultado(
+          resultado: textoResultado,
+          porcentagemEconomia: porcentagemEconomia,
+          valorEconomia100km: valorEconomia100km,
+          autonomiaEtanol: autonomiaEtanol,
+          autonomiaGasolina: autonomiaGasolina,
+          valorGasolina: valorGasolina,
+          valorEtanol: valorEtanol,
+          isCarroPadrao: isCarroPadrao,
+        ),
+      ),
+    );
   }
 }
 
